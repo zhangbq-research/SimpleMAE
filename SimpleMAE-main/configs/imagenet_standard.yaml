@@ -1,0 +1,59 @@
+
+image_size: 224 # both the dataset and model will depend on this param
+# patch_size: 16
+
+dataset:
+  name: imagenet # name of the dataset, same with data folder name. $HOME/Data/ImageNet
+  root: '/mnt/B/zhangbq/code/datasets/few_shot_data/imagenet_2012/ILSVRC/Data/CLS-LOC'
+  folder_name: 'ImageNet' # name of your imagenet dataset. such as 'ILSVRC2012', 'ImageNet', 'imagenet' etc.
+  download: False
+
+train_loader:
+  batch_size: 256
+  shuffle: True
+  pin_memory: True
+  drop_last: True
+
+test_loader:
+  batch_size: 256
+  shuffle: False
+  pin_memory: True
+  drop_last: True
+
+model:
+  name: MAE
+  image_channel: 3
+  # image_size: 224
+  patch_size: 16
+  enc_dim: 512
+  encoder:
+    depth: 12
+    dim: 768
+    nhead: 12
+    mlp_dim: 3072
+
+  dec_dim: 512
+  decoder:
+    depth: 4
+    dim: 768
+    nhead: 12
+    mlp_dim: 3072
+  mask_ratio: 0.75
+# image_channel, image_size, patch_size, enc_dim, dec_dim, encoder, decoder, mask_ratio=0.75
+
+
+optimizer:
+  name: AdamW
+
+scheduler:
+  name: cosine
+  lr: 0.001
+  warmup_epochs: 5
+
+
+
+
+
+
+
+
